@@ -1,0 +1,9 @@
+const express = require('express');
+const { create, getAll, update, delete: del } = require('../controllers/studentController');
+const { authorize } = require('../middleware/auth');
+const router = express.Router();
+router.get('/', getAll);
+router.post('/', authorize('admin'), create);
+router.put('/:id', authorize('admin'), update);
+router.delete('/:id', authorize('admin'), del);
+module.exports = router;

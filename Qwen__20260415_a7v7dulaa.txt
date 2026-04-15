@@ -1,0 +1,40 @@
+student-attendance-system/
+├── backend/
+│   ├── config/db.js
+│   ├── controllers/authController.js
+│   ├── controllers/studentController.js
+│   ├── controllers/attendanceController.js
+│   ├── controllers/reportController.js
+│   ├── middleware/auth.js
+│   ├── models/User.js
+│   ├── models/Student.js
+│   ├── models/Attendance.js
+│   ├── routes/auth.js
+│   ├── routes/students.js
+│   ├── routes/attendance.js
+│   ├── routes/reports.js
+│   ├── .env.example
+│   ├── .gitignore
+│   ├── package.json
+│   └── server.js
+├── frontend/
+│   ├── src/
+│   │   ├── components/Navbar.jsx
+│   │   ├── components/ProtectedRoute.jsx
+│   │   ├── pages/Login.jsx
+│   │   ├── pages/Dashboard.jsx
+│   │   ├── pages/MarkAttendance.jsx
+│   │   ├── pages/Students.jsx
+│   │   ├── pages/Reports.jsx
+│   │   ├── services/api.js
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── .gitignore
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.js
+│   ├── tailwind.config.js
+│   └── postcss.config.js
+├── .gitignore
+└── README.md

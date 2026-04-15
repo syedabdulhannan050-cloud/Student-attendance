@@ -1,0 +1,5 @@
+const express = require('express');
+const { downloadCSV } = require('../controllers/reportController');
+const router = express.Router();
+router.get('/csv', downloadCSV);
+module.exports = router;

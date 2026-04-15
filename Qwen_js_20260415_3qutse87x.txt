@@ -1,0 +1,34 @@
+const Attendance = require('../models/Attendance');
+exports.markBulk = async (req, res) => {
+  try {
+    const { date, records } = req.body;
+    const ops = records.map(r => ({
+      updateOne: {
+        filter: { date: new Date(date), student: r.studentId },
+        update: { $set: { status: r.status, markedBy: req.user._id } },
+        upsert: true
+      }
+    }));
+    await Attendance.bulkWrite(ops, { ordered: false });
+    res.json({ message: 'Attendance saved successfully' });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+};
+exports.getRecords = async (req, res) => {
+  try {
+    const { class: cls, section, date } = req.query;
+    const query = {};
+    if (date) query.date = new Date(date);
+    let students = [];
+    if (cls || section) {
+      students = await (await import('../models/Student.js')).default.find(
+        cls ? { class: cls } : { section }
+      );
+      if (students.length) query.student = { $in: students.map(s => s._id) };
+    }
+    const records = await Attendance.find(query)
+      .populate('student', 'name rollNumber class section')
+      .populate('markedBy', 'name')
+      .sort({ date: -1 });
+    res.json(records);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+};
